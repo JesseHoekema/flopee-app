@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: red;
+        padding-bottom: 55px;
+    }
+
+    .bottom-bar {
+        background-color: #000000;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+    }
+    .other {
+        display: flex;
+        list-style: none;
+    }
+    .second {
+        margin-left: 40px;
+    }
+    .otherli {
+        text-decoration: none;
+        color: white;
+    }
+    .header {
+            color: black;
+            text-align: center;
+            padding: 0px;
+            position: sticky;
+            top: 0;
+            z-index: 100; /* Zorgt ervoor dat de header boven andere elementen blijft */
+            padding-left: 10%;
+        }
+    .buttons {
+        padding-left: 79%;
+        padding-top: 120%;
+        z-index: 200;
+        position: absolute;
+        position: fixed;
+    }
+    .button-ul {
+        list-style: none;
+    }
+    .buttons .img-src {
+        padding-bottom: 3px;
+    }
+    .buttons svg {
+        padding-bottom: 5px;
+    }
+    .main-vids {
+        width: 100%;
+        height: 100%;
+    }
+    .video {
+    overflow: hidden;
+    padding-top: 6%;
+    margin-bottom: 6px;
+}
+
+.video video {
+    width: 100%;
+    margin: 0;
+    height: 700px;
+    object-fit: contain;
+    border-radius: 10px; /* Extra styling for the video */
+    outline: none; /* Remove the default focus border */
+    cursor: pointer; /* Show pointer cursor on hover */
+    transition: transform 0.2s ease-in-out; /* Add a smooth transition effect on hover */
+
+    /* Optional styling for controls */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+}
+#liked {
+    display: none;
+}
+#saved {
+    display: none;
+}
+#comments {
+    background-color: white;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    height: 400px;
+    display: none;
+}
+.profile {
+    z-index: 200;
+    position: absolute;
+    position: fixed;
+    margin-top: 150%;
+    margin-left: 10px;
+    display: flex;
+}
+p {
+    padding-left: 2px;
+    color: white;
+}
+#music {
+    animation: spin 10s infinite;
+    position: absolute;
+    position: fixed;
+    margin-top: 653px;
+    margin-left: 82%;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+</style>
+<link rel="shortcut icon" href="like.webp" type="image/x-icon">
+</head>
+<body>
+    <div class="header">
+        <ul class="other">
+            <li class="otherli">LIVE</li>
+            <li class="second otherli">Following</li>
+            <li class="second otherli" style="text-decoration: underline;">For You</li>
+        </ul>
+    </div>
+
+    <div class="buttons">
+        <ul class="button-ul">
+            <li><img src="like.webp" width="35px" height="32px" class="img-src" id="not-liked" onclick="like()"><img src="liked.png" width="35px" height="35px" id="liked" onclick="unlike()"></li>
+            <li><img src="comments.png" width="35px" height="35px" class="img-src" onclick="comments()"></li>
+            <li><img src="save.webp" width="30px" height="35px" class="img-src" onclick="save()" id="save"><img src="saved.webp" width="40px" height="38px" id="saved" onclick="unsave()"></li>
+            <li><img src="image.webp" width="32px" height="35px"></li>
+        </ul>
+    </div>
+    <li><img src="viny.webp" alt="" width="45px" id="music"></li>
+    <div class="profile">
+        <img src="pfp.jpg" width="40px" style="border-radius: 50px;">
+    </div>
+    <div class="video">
+        <div class="video-container" id="video-container"></div>
+    </div>
+    <div id="comments">
+        <h1>Coming Soon </h1>
+    </div>
+    <div class="bottom-bar">
+        <!-- Hier komt de inhoud van de bottom bar -->
+        <ul class="other">
+            <li class="otherli"><svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 11V6L6 1L11 6V11H1Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                </li>
+            <li class="second otherli"><svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="6" cy="6" r="5.5" stroke="white"/>
+                <circle cx="6" cy="6" r="3.5" stroke="white"/>
+                </svg>
+                </li>
+            <li class="second otherli"><svg width="32" height="23" viewBox="0 0 23 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="23" height="16" rx="8" fill="white"/>
+                <path d="M11.5 4V13" stroke="black" stroke-width="0.5"/>
+                <path d="M7 8.5L16 8.5" stroke="black" stroke-width="0.5"/>
+                </svg>
+                
+                </li>
+            <li class="second otherli"><svg width="25" height="24" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 9.25H7.79289L7.64645 9.39645L6.5 10.5429L5.35355 9.39645L5.20711 9.25H5H4.5C2.29086 9.25 0.5 7.45914 0.5 5.25C0.5 3.04086 2.29086 1.25 4.5 1.25H8.5C10.7091 1.25 12.5 3.04086 12.5 5.25C12.5 7.45914 10.7091 9.25 8.5 9.25H8Z" stroke="white"/>
+                <circle cx="4.5" cy="5.25" r="0.5" fill="white"/>
+                <circle cx="6.5" cy="5.25" r="0.5" fill="white"/>
+                <circle cx="8.5" cy="5.25" r="0.5" fill="white"/>
+                </svg>
+                </li>
+            <li class="second otherli"><svg width="22" height="22" viewBox="0 0 10 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 8H1V7C1 5.89543 1.89543 5 3 5H7C8.10457 5 9 5.89543 9 7V8Z" stroke="white"/>
+                <circle cx="5" cy="2" r="1.5" stroke="white"/>
+                </svg>
+                </li>
+        </ul>
+    </div>
+    <script>
+        // GitHub repo details
+        const repoOwner = 'JesseHoekema';
+        const repoName = 'flopee';
+        const accessToken = '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'; // Replace with your GitHub Personal Access Token
+
+        // GitHub API URL for fetching video files
+        const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents`;
+
+        // Function to fetch video files from GitHub
+        async function fetchVideos() {
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error fetching videos:', error);
+                return [];
+            }
+        }
+
+        // Function to dynamically create video elements
+        async function createVideoElements() {
+            const videoContainer = document.getElementById("video-container");
+            const videos = await fetchVideos();
+
+            videos.forEach((video, index) => {
+                const videoElement = document.createElement("video");
+                videoElement.id = "video" + (index + 1); // Use unique id for each video
+                videoElement.src = video.download_url;
+                videoElement.autoplay = true;
+                videoElement.controls = true;
+
+                // Append the video element to the container
+                videoContainer.appendChild(videoElement);
+            });
+        }
+
+        // Call the function to create video elements
+        createVideoElements();
+    </script>
+    <script>
+        function like() {
+            var liked = document.getElementById("liked");
+            var notliked = document.getElementById("not-liked");
+            liked.style.display = "block";
+            notliked.style.display = "none"
+        }
+        function unlike() {
+            var liked = document.getElementById("liked");
+            var notliked = document.getElementById("not-liked");
+            liked.style.display = "none";
+            notliked.style.display = "block"
+        }
+        function save() {
+            var save = document.getElementById("save");
+            var saved = document.getElementById("saved");
+            saved.style.display = "block";
+            save.style.display = "none";
+        }
+        function unsave() {
+            var save = document.getElementById("save");
+            var saved = document.getElementById("saved");
+            saved.style.display = "none";
+            save.style.display = "block";
+        }
+        function comments() {
+            var commentsbox = document.getElementById("comments");
+            commentsbox.style.display = "block";
+        }
+        function closecom() {
+            var commentsbox = document.getElementById("comments");
+            commentsbox.style.display = "none";
+        }
+    </script>
+</body>
+</html>
