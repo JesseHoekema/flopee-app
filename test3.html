@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video's uit Firebase Storage</title>
+  </head>
+  <body>
+    <h1>Video's uit Firebase Storage</h1>
+    <div id="video-container"></div>
+
+    <script type="module">
+      import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+      import {
+        getStorage,
+        listAll,
+        ref,
+      } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js';
+      // Firebase configuratie
+      const firebaseConfig = {
+        apiKey: "AIzaSyDkXq1iMiNes8ub6JMIRijdUwhipEqSKLU",
+  authDomain: "flopee-db470.firebaseapp.com",
+  databaseURL: "https://flopee-db470-default-rtdb.firebaseio.com",
+  projectId: "flopee-db470",
+  storageBucket: "flopee-db470.appspot.com",
+  messagingSenderId: "41067622986",
+  appId: "1:41067622986:web:77826112f83eb806b4ecb3",
+      };
+
+      // Firebase initialiseren
+      const myApp = initializeApp(firebaseConfig);
+      const myStorage = getStorage(myApp);
+
+      // Functie om video's uit Firebase Storage te halen
+      async function fetchVideos() {
+        try {
+          // Maak een referentie naar de video opslag bucket        
+          const videoRef = ref(myStorage, "gs://flopee-db470.appspot.com"); // Vervang "video's" met uw eigen bucketnaam
+
+          // Alle videobestanden ophalen
+          const files = await listAll(videoRef);
+
+          console.log("num files:", files.length);
+          console.log("files are:", files);
+
+          // De video-URL's retourneren
+          return files.items.map((item) => item.downloadURL);
+        } catch (error) {
+          console.error('Error fetching videos:', error);
+          return [];
+        }
+      }
+
+      // Functie om dynamisch video-elementen te maken
+      async function createVideoElements() {
+        const videoContainer = document.getElementById('video-container');
+        const videos = await fetchVideos();
+
+        videos.forEach((videoUrl, index) => {
+          const videoElement = document.createElement('video');
+          videoElement.id = 'video' + (index + 1);
+          videoElement.src = videoUrl;
+          videoElement.autoplay = true;
+          videoElement.controls = true;
+
+          videoContainer.appendChild(videoElement);
+        });
+      }
+
+      // De functie aanroepen om video-elementen te maken
+      createVideoElements();
+    </script>
+  </body>
+</html>

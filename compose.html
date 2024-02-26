@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Storage URLs</title>
+    <style>
+      #myVideo {
+        width: 100px;
+        height: 40px;
+      }
+    </style>
+</head>
+<body>
+  <div id="fileList"></div>
+    <video id="myVideo" width="100px" height="100px" controls>
+  </video>
+
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+    <script>
+// Voeg hier je Firebase-configuratie toe
+const firebaseConfig = {
+  apiKey: "AIzaSyDkXq1iMiNes8ub6JMIRijdUwhipEqSKLU",
+  authDomain: "flopee-db470.firebaseapp.com",
+  databaseURL: "https://flopee-db470-default-rtdb.firebaseio.com",
+  projectId: "flopee-db470",
+  storageBucket: "flopee-db470.appspot.com",
+  messagingSenderId: "41067622986",
+  appId: "1:41067622986:web:77826112f83eb806b4ecb3",
+};
+
+// Initialiseer Firebase
+firebase.initializeApp(firebaseConfig);
+
+// Verkrijg een verwijzing naar de Firebase Storage-service
+const storage = firebase.storage();
+
+// Verkrijg een verwijzing naar de root van de opslag
+const storageRef = storage.ref();
+
+// Verkrijg een lijst van alle bestanden in de opslag
+storageRef.listAll().then((result) => {
+    result.items.forEach((item) => {
+        // Haal de download URL op voor elk bestand
+        item.getDownloadURL().then((url) => {
+            displayFile(item.name, url);
+        });
+    });
+}).catch((error) => {
+    console.error("Error retrieving file list:", error);
+});
+
+// Functie om een bestand en bijbehorend videobestandselement weer te geven op de HTML-pagina
+function displayFile(fileName, fileUrl) {
+    const fileList = document.getElementById("fileList");
+
+    // Maak een nieuw element aan voor elk bestand
+    const fileItem = document.createElement("div");
+    fileItem.classList.add("fileItem");
+
+    // Voeg de bestandsnaam en URL toe aan het element
+    fileItem.innerHTML = `<strong>${fileName}</strong>: <a href="${fileUrl}" target="_blank">${fileUrl}</a>`;
+
+    // Voeg het element toe aan de lijst op de HTML-pagina
+    fileList.appendChild(fileItem);
+
+    // Maak een nieuw videobestandselement aan
+    const videoElement = document.createElement("video");
+    videoElement.src = fileUrl; // Stel de URL in als bron voor het videobestandselement
+    videoElement.autoplay = true; // Schakel autoplay in
+
+    // Voeg het videobestandselement toe aan de lijst op de HTML-pagina
+    fileList.appendChild(videoElement);
+}
+
+    </script>
+</body>
+</html>

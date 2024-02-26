@@ -1,0 +1,7 @@
+    apiKey: "AIzaSyDkXq1iMiNes8ub6JMIRijdUwhipEqSKLU",
+  authDomain: "flopee-db470.firebaseapp.com",
+  databaseURL: "https://flopee-db470-default-rtdb.firebaseio.com",
+  projectId: "flopee-db470",
+  storageBucket: "flopee-db470.appspot.com",
+  messagingSenderId: "41067622986",
+  appId: "1:41067622986:web:77826112f83eb806b4ecb3",
